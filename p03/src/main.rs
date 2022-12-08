@@ -15,13 +15,16 @@ fn main() {
     });
 
     // Part 2
-    let badge_sum = input.split("\n").array_chunks::<3>().fold(0, |priority, bags| {
-        let badge_type = get_badge_type(bags[0], bags[1], bags[2]);
-        match badge_type {
-            Some(c) => priority + get_item_priority(c),
-            None => priority
-        }
-    });
+    let badge_sum = input
+        .split("\n")
+        .array_chunks::<3>()
+        .fold(0, |priority, bags| {
+            let badge_type = get_badge_type(bags[0], bags[1], bags[2]);
+            match badge_type {
+                Some(c) => priority + get_item_priority(c),
+                None => priority,
+            }
+        });
 
     println!("{}", priority_sum);
     println!("{}", badge_sum);
@@ -48,4 +51,3 @@ fn get_badge_type(bag_1: &str, bag_2: &str, bag_3: &str) -> Option<char> {
     let i_1: HashSet<char> = bag_1_set.intersection(&bag_2_set).cloned().collect();
     i_1.intersection(&bag_3_set).nth(0).cloned()
 }
-
